@@ -10,4 +10,4 @@ services:
       - ./:/application:rw
     ports:
       - "8080:3000"
-    command: node index.js
+    command: npx nodemon index.js
