@@ -17,9 +17,8 @@ module.exports = {
         before: true
       }
     ],
-    "linebreak-style": ["error", "unix"],
     "object-curly-spacing": ["error", "always"],
     quotes: ["error", "single"],
-    semi: ["error", "never"]
+    semi: ["error", "always"]
   }
 };

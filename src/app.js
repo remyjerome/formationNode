@@ -1,17 +1,10 @@
-const express = require("express");
+const express = require('express');
+require('twig');
 
-const Twig = require("twig");
+const setHomeRoute = require('./home/home.route');
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.render("home.twig", {
-    message: "Hello world"
-  });
-});
-
-app.get("/coucou", (req, res) => {
-  res.send("Orange!");
-});
+setHomeRoute(app);
 
 module.exports = app;
