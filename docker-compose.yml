@@ -10,4 +10,4 @@ services:
       - ./:/application:rw
     ports:
       - "8080:3000"
-    command: npx nodemon index.js
+    command: npm start

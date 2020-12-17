@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install-deps": "if [ -z \"$(ls -A ./node_modules)\" ]; then npm i; fi",
+    "start": "npm run install-deps; nodemon index.js -e twig,js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,8 @@
   },
   "homepage": "https://github.com/remyjerome/formationNode#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "twig": "^1.15.4"
   },
   "devDependencies": {
     "eslint": "^7.15.0",

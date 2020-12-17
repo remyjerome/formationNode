@@ -1,14 +1,18 @@
 const express = require("express");
 
+const Twig = require("twig");
+
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.render('index.twig', {
+    message : "Hello World"
+  });
 });
 
 app.get("/coucou", (req, res) => {
-  res.send("Coucou World!");
+  res.send("Orange!");
 });
 
 app.listen(port, () => {
