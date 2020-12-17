@@ -1,0 +1,13 @@
+version: "3"
+services:
+  server:
+    image: node:latest
+    working_dir: /application
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      - ./:/application:rw
+    ports:
+      - "8080:3000"
+    command: node index.js
