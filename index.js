@@ -6,8 +6,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  res.render('index.twig', {
-    message : "Hello World"
+  res.render('home.twig', {
+    message : "twig tempsssslate"
   });
 });
 
@@ -18,5 +18,3 @@ app.get("/coucou", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-
-process.stdout.write("Hello world");
