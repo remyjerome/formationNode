@@ -8,7 +8,7 @@ module.exports = function setHomeRoute(app) {
   app.get('/', async (req, res) => {
 
     try {
-      const html = await renderFilePromisified('./src/home/home.twig', { message: 'bar' });
+      const html = await renderFilePromisified('./src/home/home.twig', { message: 'Hello world' });
       res.send(html)
     } catch (err) {
       console.error(err)
