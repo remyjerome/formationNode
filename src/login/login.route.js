@@ -17,11 +17,12 @@ module.exports = function setLoginRoute(app) {
   });
 
   app.post('/login', async (req, res) => {
+    console.log(req.body);
     if (!req.body.name) {
       return res.redirect('/login');
     }
 
-    let users = JSON.parse(await redis.getPromisified(`users`));
+    let users = JSON.parse(await redis.getPromisified('users'));
 
     if (!users) {
       users = {};
