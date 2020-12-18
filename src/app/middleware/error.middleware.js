@@ -5,12 +5,16 @@ const Twig = require('twig');
 const renderFilePromisified = promisify(Twig.renderFile);
 
 module.exports = async function errorHandler(err, req, res, next) {
-  try {
-    const html = await renderFilePromisified('./src/app/middleware/error.twig', {
-      err
-    });
-    res.send(html);
-  } catch (err) {
-    console.error(err);
+  if (req.headers['accept'].includes('text/html')) {
+    const html = await renderFilePromisified(
+      './src/app/middleware/error.twig',
+      {
+        err
+      }
+    );
+
+    return res.send(html);
   }
+
+  return res.json({ err });
 };
