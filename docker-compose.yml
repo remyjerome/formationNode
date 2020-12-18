@@ -6,8 +6,16 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3000
+      - REDIS_URL=redis://cache
     volumes:
       - ./:/application:rw
     ports:
       - "8080:3000"
+      - "9229:9229"
     command: npm start
+
+  redis:
+    image: redis:latest
+    container_name: cache
+    expose:
+      - 6379
