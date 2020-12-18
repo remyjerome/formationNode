@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install-deps": "if [ -z \"$(ls -A ./node_modules)\" ]; then npm i; fi",
-    "start": "npm run install-deps && nodemon index.js -e twig,js",
+    "start": "npm run install-deps && nodemon --legacy-watch index.js -e twig,js",
     "tests": "npx jest -c jest.config.spec.js"
   },
   "repository": {

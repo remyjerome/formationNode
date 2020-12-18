@@ -7,6 +7,8 @@ require('twig');
 const setHomeRoute = require('./home/home.route');
 const setLoginRoute = require('./login/login.route');
 
+const errorHandler = require('./app/middleware/error.middleware.js');
+
 const app = express();
 
 app.use(cookieParser());
@@ -16,5 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 setHomeRoute(app);
 setLoginRoute(app);
+
+app.use(errorHandler);
 
 module.exports = app;

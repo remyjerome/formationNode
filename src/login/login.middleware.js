@@ -3,5 +3,6 @@ module.exports = function isLogged(req, res, next) {
     return res.redirect('/login');
   }
   req.currentUser = JSON.parse(req.cookies.currentUser);
+
   next();
 };
