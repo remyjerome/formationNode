@@ -1,6 +1,6 @@
 const { promisify } = require('util');
-const redis = require("redis");
-
+const redis = require('redis');
+const { nanoid } = require('nanoid');
 const Twig = require('twig');
 
 const client = redis.createClient(process.env.REDIS_URL, {
@@ -11,11 +11,11 @@ const renderFilePromisified = promisify(Twig.renderFile);
 const getPromisfied = promisify(client.get).bind(client);
 const setPromisfied = promisify(client.set).bind(client);
 
-client.on("error", function (error) {
+client.on('error', function(error) {
   console.error(error);
 });
 
-module.exports = async function setLoginRoute(app) {
+module.exports = function setLoginRoute(app) {
   app.get('/login', async (req, res) => {
     try {
       const html = await renderFilePromisified('./src/login/login.twig');
@@ -25,18 +25,37 @@ module.exports = async function setLoginRoute(app) {
     }
   });
 
-  app.post('/login', (req, res) => {
+  app.post('/login', async (req, res) => {
     if (!req.body.name) {
       return res.redirect('/login');
     }
 
-    const json = JSON.stringify({ name: req.body.name });
+    let users = JSON.parse(await getPromisfied(`users`));
 
-    await setPromisfied('user', json)
+    if (!users) {
+      users = {};
+    }
 
-    getPromisfied()
+    // Check if user exist
+    let userJson =
+      users[req.body.name] &&
+      (await getPromisfied(`user:${users[req.body.name]}`));
 
-    res.cookie('currentUser', json, { maxAge: 1000 * 60 * 60 });
+    let user = userJson && JSON.parse(userJson);
+
+    if (!user) {
+      // Create new user
+      const userId = nanoid();
+      user = { name: req.body.name, id: userId };
+      userJson = JSON.stringify(user);
+
+      await setPromisfied(`user:${userId}`, userJson);
+
+      users[user.name] = user.id;
+      await setPromisfied(`users`, JSON.stringify(users));
+    }
+
+    res.cookie('currentUser', userJson, { maxAge: 1000 * 60 * 60 });
 
     return res.redirect('/');
   });
