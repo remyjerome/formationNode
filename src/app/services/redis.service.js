@@ -11,9 +11,13 @@ client.on('error', function(error) {
 
 const getPromisified = promisify(client.get).bind(client);
 const setPromisified = promisify(client.set).bind(client);
+const keysPromisified = promisify(client.keys).bind(client);
+const delPromisified = promisify(client.del).bind(client);
 
 module.exports = {
   ...client,
   getPromisified,
-  setPromisified
+  setPromisified,
+  keysPromisified,
+  delPromisified
 };

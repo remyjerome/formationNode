@@ -8,10 +8,8 @@ const renderFilePromisified = promisify(Twig.renderFile);
 
 module.exports = function setHomeRoute(app) {
   app.get('/', isLogged, async (req, res) => {
-
     try {
-
-      const tasks = JSON.parse(await redisService.getPromisified('tasks'))
+      const tasks = JSON.parse(await redisService.getPromisified('tasks'));
       const html = await renderFilePromisified('./src/home/home.twig', {
         currentUser: req.currentUser,
         tasks
