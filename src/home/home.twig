@@ -6,4 +6,18 @@
 
 {% block body %}
    Hello, {{ currentUser.name }}
+    </br>
+        <h2>FORM TODO</h2>
+       <form method="post" action="/task">
+        <label for="label">Label</label><input type="text" id="label" name="taskLabel" />
+        <button type="submit">OK</button>
+    </form>
+    </br>
+    <h2>LIST TODO</h2>
+    <ul>
+        {% for task in tasks %}
+            <li><b>{{ task.label }}</b></li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}
