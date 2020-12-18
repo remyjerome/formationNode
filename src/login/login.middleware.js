@@ -8,9 +8,10 @@ module.exports = function isLogged(req, res, next) {
     return next();
   }
 
-  if (!req.headers.api) {
-    return res.json({ error: 'Need to be logged though api' });
-  }
+  console.log(req.headers)
+  // if (!req.headers.api) {
+  //   return res.json({ error: 'Need to be logged through api' });
+  // }
 
   req.currentUser = JSON.parse(req.headers.api).user;
 

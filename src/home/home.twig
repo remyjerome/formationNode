@@ -8,10 +8,10 @@
    Hello, {{ currentUser.name }}
     </br>
         <h2>FORM TODO</h2>
-       <form method="post" action="/task">
+       <div>
         <label for="label">Label</label><input type="text" id="label" name="taskLabel" />
-        <button type="submit">OK</button>
-    </form>
+        <button onClick="sendTask()">OK</button>
+    </div>
     </br>
     <h2>LIST TODO</h2>
     <ul>
@@ -20,4 +20,26 @@
         {% endfor %}
     </ul>
 
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io({
+        query: {
+          userId: '{{ currentUser.id }}'
+        }
+      });
+
+      function sendTask() {
+        const input = document.querySelector('#label');
+        socket.emit('new-task', {
+          label: input.value
+        })
+        input.value = '';
+      }
+
+      socket.on('new-task', (task) => {
+        const ulElement = document.querySelector('ul')
+        ulElement.innerHTML = `${ulElement.innerHTML}<li><b>${task.label}</b></li>`
+        console.log(task)
+      })
+    </script>
 {% endblock %}

@@ -14,7 +14,6 @@ module.exports = function setHomeRoute(app) {
         currentUser: req.currentUser,
         tasks
       });
-      console.log(req.currentUser);
       res.send(html);
     } catch (err) {
       console.error(err);
